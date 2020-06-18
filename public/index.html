@@ -27,6 +27,8 @@
                 var lastName = $("#lastName").val();
                 var email = $("#email").val();
                 var phone = $("#phone").val();
+                var avatar_url = $("#avatar-url").val();
+
 
                 if (firstName.length == 0 || lastName.length == 0 || email.length == 0 || phone.length == 0) {
                     errorMessage.text("All of the fields are required.");
@@ -40,7 +42,8 @@
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
-                            phone: phone
+                            phone: phone,
+                            avatar_url:avatar_url
                         }),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
@@ -49,6 +52,7 @@
                             $("#lastName").val("");
                             $("#email").val("");
                             $("#phone").val("");
+                            $("#avatar-url").val("");
                             $("#messageMessage").text("Record updated!");
                             $("#message").show();
                         },
@@ -97,7 +101,7 @@
                     </div>
                     <div class="form-group">
                         <h2>Your avatar</h2>
-
+                        <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png">
                         <input type="file" id="file-input">
                         <p id="status">Please select a file</p>
                         <img style="border:1px solid gray;width:300px;"  id="preview" src="/img/default.png">
