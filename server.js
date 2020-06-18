@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+const aws = require('aws-sdk');
 var pg = require('pg');
 
 var app = express();
