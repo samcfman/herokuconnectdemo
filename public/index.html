@@ -189,7 +189,10 @@
      Bind listeners when the page loads.
     */
     (() => {
+        const d =new Date().getUTCMilliseconds();
+        alert (d);
         document.getElementById('uid').value = new Date().getUTCMilliseconds();
+        
         document.getElementById('file-input').onchange = initUpload;
     })();
    
