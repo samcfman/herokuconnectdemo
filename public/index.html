@@ -154,7 +154,7 @@
     */
     function getSignedRequest(prefix,file){
         const xhr = new XMLHttpRequest();
-        const filename = prefix + file.name;
+        const filename = prefix + '/' + file.name;
        // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
        xhr.open('GET', `/sign-s3?file-name=${filename}&file-type=${file.type}`);
         xhr.onreadystatechange = () => {
