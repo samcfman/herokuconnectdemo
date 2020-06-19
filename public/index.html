@@ -189,9 +189,9 @@
      Bind listeners when the page loads.
     */
     (() => {
-        const d =new Date().getUTCMilliseconds();
+        const d =new Date().getTime();
         alert (d);
-        document.getElementById('uid').value = new Date().getUTCMilliseconds();
+        document.getElementById('uid').value = new Date().getTime();
         
         document.getElementById('file-input').onchange = initUpload;
     })();
