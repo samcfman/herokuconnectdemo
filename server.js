@@ -30,7 +30,8 @@ app.get('/sign-s3', (req, res) => {
       Key: fileName,
       Expires: 60,
       ContentType: fileType,
-      ACL: 'public-read'
+      ACL: "bucket-owner-full-control"
+     // ACL: 'public-read'
     };
   
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
