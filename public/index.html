@@ -152,9 +152,11 @@
       If request successful, continue to upload the file using this signed
       request.
     */
-    function getSignedRequest(file){
+    function getSignedRequest(prefix,file){
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+        const filename = prefix + file.name;
+       // xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+       xhr.open('GET', `/sign-s3?file-name=${filename}&file-type=${file.type}`);
         xhr.onreadystatechange = () => {
           if(xhr.readyState === 4){
             if(xhr.status === 200){
@@ -179,8 +181,8 @@
         if(file == null){
           return alert('No file selected.');
         }
-        alert ('sman' + '/' + file);
-        getSignedRequest(prefix + '/' + file);
+       
+        getSignedRequest('sman',file);
       }
 
      /*
