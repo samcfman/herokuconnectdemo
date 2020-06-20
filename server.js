@@ -71,30 +71,34 @@ app.post('/update', function(req, res) {
                   conn.query('INSERT INTO salesforce.Contact (Phone, MobilePhone, FirstName, LastName, Email,external_email_id__c,Avator_Image__c ) VALUES ($1, $2, $3, $4, $5, $6,$7)',
                   [req.body.phone.trim(), req.body.phone.trim(), req.body.firstName.trim(), req.body.lastName.trim(), req.body.email.trim(), req.body.prefix, req.body.avatar_url.trim()],
                   function(err, result) {
-                    done();
+                   // done();
                     if (err) {
+                      done();
                         res.status(400).json({error: err.message});
                     }
                     else {
                         // this will still cause jquery to display 'Record updated!'
                         // eventhough it was inserted
-                        res.json(result);
+                       // res.json(result);
+
+                       conn.query('INSERT INTO salesforce.S3_File__c (Key, Related_Id__c ) VALUES ($1, $2)',
+                       [req.body.key.trim(), req.body.prefix.trim()],
+                       function(err, result) {
+                         done();
+                         if (err) {
+                             res.status(400).json({error: err.message});
+                         }
+                         else {
+                             // this will still cause jquery to display 'Record updated!'
+                             // eventhough it was inserted
+                             res.json(result);
+                         }
+                       });                  
+     
                     }
                   });
 
-                  conn.query('INSERT INTO salesforce.S3_File__c (Key, Related_Id__c ) VALUES ($1, $2)',
-                  [req.body.key.trim(), req.body.prefix.trim()],
-                  function(err, result) {
-                    done();
-                    if (err) {
-                        res.status(400).json({error: err.message});
-                    }
-                    else {
-                        // this will still cause jquery to display 'Record updated!'
-                        // eventhough it was inserted
-                        res.json(result);
-                    }
-                  });
+
 
                 }
                 else {
