@@ -39,9 +39,18 @@ app.get('/sign-s3', (req, res) => {
         console.log(err);
         return res.end();
       }
+      const params = {
+        Bucket: S3_BUCKET, 
+        Key: fileName,
+        Expires: 60
+      };
+      
+      const signedURL = s3.getSignedUrl('getObject', params);
+
       const returnData = {
         signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+        url: signedURL
+        //url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
       };
       res.write(JSON.stringify(returnData));
       res.end();
