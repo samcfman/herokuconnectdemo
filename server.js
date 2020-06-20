@@ -86,6 +86,7 @@ app.post('/update', function(req, res) {
                        function(err, result) {
                          done();
                          if (err) {
+                           alert ('error');
                              res.status(400).json({error: err.message});
                          }
                          else {
