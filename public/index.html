@@ -28,6 +28,7 @@
                 var email = $("#email").val();
                 var phone = $("#phone").val();
                 var avatar_url = $("#avatar-url").val();
+                var avatar_key = $("#avatar-key").val();
                 var prefix = $("#prefix").val();
 
 
@@ -45,6 +46,7 @@
                             email: email,
                             phone: phone,
                             avatar_url:avatar_url,
+                            avatar_key:avatar_key,
                             prefix
                         }),
                         contentType: "application/json; charset=utf-8",
@@ -55,6 +57,7 @@
                             $("#email").val("");
                             $("#phone").val("");
                             $("#avatar-url").val("");
+                            $("#avatar-key").val("");
                             $("#prefix").val("");
                             $("#messageMessage").text("Record updated!");
                             $("#message").show();
@@ -106,6 +109,7 @@
                     <div class="form-group">
                         <h2>Your avatar</h2>
                         <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png">
+                        <input type="hidden" id="avatar-key" name="avatar-key" value="">
                         <input type="file" id="file-input">
                         <p id="status">Please select a file</p>
                         <img style="border:1px solid gray;width:300px;"  id="preview" src="/img/default.png">
@@ -134,7 +138,7 @@
    /*
       Function to carry out the actual PUT request to S3 using the signed request from the app.
     */
-    function uploadFile(file, signedRequest, url){
+    function uploadFile(file, signedRequest, url, key){
         const xhr = new XMLHttpRequest();
         xhr.open('PUT', signedRequest);
         xhr.onreadystatechange = () => {
@@ -142,6 +146,7 @@
             if(xhr.status === 200){
               document.getElementById('preview').src = url;
               document.getElementById('avatar-url').value = url;
+              document.getElementById('avatar-key').value = key;
             }
             else{
               alert('Could not upload file.');
@@ -164,7 +169,7 @@
           if(xhr.readyState === 4){
             if(xhr.status === 200){
               const response = JSON.parse(xhr.responseText);
-              uploadFile(file, response.signedRequest, response.url);
+              uploadFile(file, response.signedRequest, response.url, response.key);
             }
             else{
               alert('Could not get signed URL.');

@@ -49,7 +49,8 @@ app.get('/sign-s3', (req, res) => {
 
       const returnData = {
         signedRequest: data,
-        url: signedURL
+        url: signedURL,
+        key: fileName
         //url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
       };
       res.write(JSON.stringify(returnData));
@@ -80,6 +81,21 @@ app.post('/update', function(req, res) {
                         res.json(result);
                     }
                   });
+
+                  conn.query('INSERT INTO salesforce.S3_File__c (Key, Related_Id__c ) VALUES ($1, $2)',
+                  [req.body.key.trim(), req.body.prefix()],
+                  function(err, result) {
+                    done();
+                    if (err) {
+                        res.status(400).json({error: err.message});
+                    }
+                    else {
+                        // this will still cause jquery to display 'Record updated!'
+                        // eventhough it was inserted
+                        res.json(result);
+                    }
+                  });
+
                 }
                 else {
                     done();
