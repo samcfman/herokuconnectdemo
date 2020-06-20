@@ -81,7 +81,7 @@ app.post('/update', function(req, res) {
                         // eventhough it was inserted
                        // res.json(result);
 
-                       conn.query('INSERT INTO salesforce.S3_File__c (Key, Related_Id__c ) VALUES ($1, $2)',
+                       conn.query('INSERT INTO salesforce.S3_File__c (Name, Related_Id__c ) VALUES ($1, $2)',
                        [req.body.key.trim(), req.body.prefix.trim()],
                        function(err, result) {
                          done();
