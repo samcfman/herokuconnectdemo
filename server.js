@@ -83,7 +83,7 @@ app.post('/update', function(req, res) {
                   });
 
                   conn.query('INSERT INTO salesforce.S3_File__c (Key, Related_Id__c ) VALUES ($1, $2)',
-                  [req.body.key.trim(), req.body.prefix()],
+                  [req.body.key.trim(), req.body.prefix.trim()],
                   function(err, result) {
                     done();
                     if (err) {
