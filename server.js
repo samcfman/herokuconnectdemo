@@ -69,7 +69,7 @@ app.post('/update', function(req, res) {
             function(err, result) {
                 if (err != null || result.rowCount == 0) {
                   conn.query('INSERT INTO salesforce.Contact (Phone, MobilePhone, FirstName, LastName, Email,external_email_id__c,Avator_Image__c ) VALUES ($1, $2, $3, $4, $5, $6,$7)',
-                  [req.body.phone.trim(), req.body.phone.trim(), req.body.firstName.trim(), req.body.lastName.trim(), req.body.email.trim(), req.body.prefix, req.body.avatar_url.trim()],
+                  [req.body.phone.trim(), req.body.phone.trim(), req.body.firstName.trim(), req.body.lastName.trim(), req.body.email.trim(), req.body.prefix.trim(), req.body.avatar_url.trim()],
                   function(err, result) {
                    // done();
                     if (err) {
