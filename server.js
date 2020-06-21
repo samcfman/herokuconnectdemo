@@ -42,7 +42,7 @@ app.get('/sign-s3', (req, res) => {
       const params = {
         Bucket: S3_BUCKET, 
         Key: fileName,
-        Expires: 60
+        Expires: 600
       };
       
       const signedURL = s3.getSignedUrl('getObject', params);
