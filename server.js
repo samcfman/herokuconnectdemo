@@ -68,7 +68,7 @@ app.post('/update', function(req, res) {
             [req.body.phone.trim(), req.body.firstName.trim(), req.body.lastName.trim(), req.body.email.trim()],
             function(err, result) {
                 if (err != null || result.rowCount == 0) {
-                  conn.query('INSERT INTO salesforce.Contact (Phone, MobilePhone, FirstName, LastName, Email,external_email_id__c,Avator_Image__c ) VALUES ($1, $2, $3, $4, $5, $6,$7)',
+                  conn.query('INSERT INTO salesforce.Contact (Phone, MobilePhone, FirstName, LastName, Email,Email_External_ID__c,Avator_Image__c ) VALUES ($1, $2, $3, $4, $5, $6,$7)',
                   [req.body.phone.trim(), req.body.phone.trim(), req.body.firstName.trim(), req.body.lastName.trim(), req.body.email.trim(), req.body.prefix.trim(), req.body.avatar_url.trim()],
                   function(err, result) {
                    // done();
@@ -81,7 +81,7 @@ app.post('/update', function(req, res) {
                         // eventhough it was inserted
                        // res.json(result);
 
-                       conn.query('INSERT INTO salesforce.S3_File__c (Name, Related_Id__c, 	Contact__r__External_Email_ID__c,URL__c) VALUES ($1, $2, $2,$3)',
+                       conn.query('INSERT INTO salesforce.S3_File__c (Name, Related_Id__c, 	Contact__r__Email_External_ID__c,URL__c) VALUES ($1, $2, $2,$3)',
                        [req.body.avatar_key.trim(), req.body.prefix.trim(), req.body.avatar_url.trim()],
                        function(err, result) {
                          done();
